@@ -1,0 +1,59 @@
+using System;
+using Newtonsoft.Json;
+using UnityEngine;
+
+namespace UnityJSONUtils.Scripts.Types.Components
+{
+    [Serializable]
+    [JsonObject]
+    public class ConfigGameObject
+    {
+        [JsonProperty] public string Name;
+
+        [JsonProperty] public ConfigComponent[] Components;
+
+        [JsonProperty] public ConfigGameObject[] Children;
+
+        public void Initialize(GameObject go)
+        {
+            go.name = Name;
+            AddComponents(go);
+            InstantiateChildren(go);
+        }
+        
+        private void AddComponents(GameObject go)
+        {
+            if (Components == null) return;
+            
+            foreach (var cmp in Components)
+            {
+                // Continue if component type is invalid
+                if (cmp.ComponentType == null) continue;
+                
+                // Create a new instance of the matching type
+                var component = Activator.CreateInstance(cmp.ComponentType);
+            
+                // Update the json data
+                JsonConvert.PopulateObject(cmp.Data.ToString(), component);
+                
+                // Get it's AddComponent method
+                var methodInfo = component.GetType().GetMethod("AddComponent");
+
+                // Run the method
+                methodInfo?.Invoke(component, new object[] { go });
+            } 
+        }
+
+        private void InstantiateChildren(GameObject go)
+        {
+            if (Children == null) return;
+            
+            foreach (var child in Children)
+            {
+                GameObject obj = new();
+                obj.transform.SetParent(go.transform);
+                child.Initialize(obj);
+            }
+        }
+    }
+}

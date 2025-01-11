@@ -4,10 +4,10 @@ using Newtonsoft.Json.Converters;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnityJSONUtils.Scripts.Types.UI
+namespace UnityJSONUtils.Scripts.Types.Components.UI
 {
     [Serializable]
-    public class ConfigCanvasScaler
+    public class ConfigCanvasScaler : ConfigComponent
     {
         [Header("General")]
         [JsonConverter(typeof(StringEnumConverter))]
@@ -129,5 +129,7 @@ namespace UnityJSONUtils.Scripts.Types.UI
             
             return scaler;
         }
+        
+        public override void AddComponent(GameObject go) => UpdateCanvasScaler(go.AddComponent<CanvasScaler>());
     }
 }

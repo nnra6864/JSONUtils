@@ -3,10 +3,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using UnityEngine;
 
-namespace UnityJSONUtils.Scripts.Types.UI
+namespace UnityJSONUtils.Scripts.Types.Components.UI
 {
     [Serializable]
-    public class ConfigCanvas
+    public class ConfigCanvas : ConfigComponent
     {
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty] public RenderMode RenderMode;
@@ -73,5 +73,7 @@ namespace UnityJSONUtils.Scripts.Types.UI
             canvas.worldCamera = GameObject.Find(CameraName)?.GetComponent<Camera>();
             return canvas;
         }
+        
+        public override void AddComponent(GameObject go) => UpdateCanvas(go.AddComponent<Canvas>());
     }
 }
