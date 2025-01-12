@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using TMPro;
 
-namespace UnityJSONUtils.Scripts.Types.Components.UI
+namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 {
     /// This class is used as a bridge between <see cref="TMP_Text"/> and JSON <br/>
     /// Make sure to assign null in the Reset function and default value in a function called after loading data if the value is still null <br/>

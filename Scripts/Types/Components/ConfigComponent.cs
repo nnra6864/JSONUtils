@@ -1,9 +1,9 @@
 using System;
 using Newtonsoft.Json;
+using NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI;
 using UnityEngine;
-using UnityJSONUtils.Scripts.Types.Components.UI;
 
-namespace UnityJSONUtils.Scripts.Types.Components
+namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components
 {
     [Serializable]
     public class ConfigComponent

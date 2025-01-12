@@ -2,7 +2,7 @@ using System;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace UnityJSONUtils.Scripts.Types.Components
+namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components
 {
     [Serializable]
     [JsonObject]

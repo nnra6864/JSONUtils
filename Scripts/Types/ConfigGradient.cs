@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using UnityEngine;
 
-namespace UnityJSONUtils.Scripts.Types
+namespace NnUtils.Modules.JSONUtils.Scripts.Types
 {
     /// This class is used as a bridge between <see cref="Gradient"/> and JSON <br/>
     /// Make sure to assign null in the Reset function and default value in a function called after loading data if the value is still null <br/>
