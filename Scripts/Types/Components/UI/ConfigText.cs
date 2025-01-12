@@ -1,7 +1,10 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using NnUtils.Scripts;
 using TMPro;
+using UnityEngine;
+using Color = UnityEngine.Color;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 {
@@ -12,19 +15,130 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
     public class ConfigText : ConfigComponent
     {
         /// Leaving it empty will result in no effect <br/>
-        /// Setting it to Default will result in a default system font being used <br/>
+        /// Setting it to Default will result in the default system font being used <br/>
         /// Assigning it a name, e.g. CascadiaCode, will result in a system font being used if found
         [JsonIgnore] public static string DefaultFont = "";
         
         // Use <br> to go to new line
         [JsonProperty] public string Text;
         
+        [JsonProperty] public string Font;
+        
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty] public FontStyles FontStyle;
 
-        private void Test()
+        [JsonProperty] public float FontSize;
+
+        [JsonProperty] public bool AutoSize;
+
+        [JsonProperty] public ConfigColor Color;
+        
+        [JsonProperty] public float CharacterSpacing;
+        [JsonProperty] public float WordSpacing;
+        [JsonProperty] public float LineSpacing;
+        [JsonProperty] public float ParagraphSpacing;
+        
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty] public TextAlignmentOptions Alignment;
+        
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty] public TextWrappingModes Wrapping;
+        
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty] public TextOverflowModes Overflow;
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty] public TextureMappingOptions HorizontalMapping;
+        
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty] public TextureMappingOptions VerticalMapping;
+
+        public ConfigText()
         {
-            TMP_Text t;
+            Text              = "";
+            Font              = "";
+            FontStyle         = FontStyles.Normal;
+            FontSize          = 36;
+            AutoSize          = false;
+            Color             = UnityEngine.Color.white;
+            CharacterSpacing  = 0;
+            WordSpacing       = 0;
+            LineSpacing       = 0;
+            ParagraphSpacing  = 0;
+            Alignment         = TextAlignmentOptions.TopLeft;
+            Wrapping          = TextWrappingModes.Normal;
+            Overflow          = TextOverflowModes.Overflow;
+            HorizontalMapping = TextureMappingOptions.Character;
+            VerticalMapping   = TextureMappingOptions.Character;
         }
+
+        public ConfigText(TMP_Text t)
+        {
+            Text              = t.text;
+            Font              = t.font.name;
+            FontStyle         = t.fontStyle;
+            FontSize          = t.fontSize;
+            AutoSize          = t.enableAutoSizing;
+            Color             = t.color;
+            CharacterSpacing  = t.characterSpacing;
+            WordSpacing       = t.wordSpacing;
+            LineSpacing       = t.lineSpacing;
+            ParagraphSpacing  = t.paragraphSpacing;
+            Alignment         = t.alignment;
+            Wrapping          = t.textWrappingMode;
+            Overflow          = t.overflowMode;
+            HorizontalMapping = t.horizontalMapping;
+            VerticalMapping   = t.verticalMapping;
+        }
+
+        public ConfigText(
+            string text,
+            string font, FontStyles fontStyle, float fontSize, bool autoSize,
+            Color color,
+            float characterSpacing, float wordSpacing, float lineSpacing, float paragraphSpacing,
+            TextAlignmentOptions alignment, TextWrappingModes wrapping, TextOverflowModes overflow,
+            TextureMappingOptions horizontalMapping, TextureMappingOptions verticalMapping)
+        {
+            Text              = text;
+            Font              = font;
+            FontStyle         = fontStyle;
+            FontSize          = fontSize;
+            AutoSize          = autoSize;
+            Color             = color;
+            CharacterSpacing  = characterSpacing;
+            WordSpacing       = wordSpacing;
+            LineSpacing       = lineSpacing;
+            ParagraphSpacing  = paragraphSpacing;
+            Alignment         = alignment;
+            Wrapping          = wrapping;
+            Overflow          = overflow;
+            HorizontalMapping = horizontalMapping;
+            VerticalMapping   = verticalMapping;
+        }
+        
+        public static implicit operator ConfigText(TMP_Text t) => new(t);
+
+        public TMP_Text UpdateText(TMP_Text t)
+        {
+            t.text = Text;
+            // TODO: Implement font handling
+            //t.font = Font;
+            t.fontStyle         = FontStyle;
+            t.fontSize          = FontSize;
+            t.enableAutoSizing  = AutoSize;
+            t.color             = Color;
+            t.characterSpacing  = CharacterSpacing;
+            t.wordSpacing       = WordSpacing;
+            t.lineSpacing       = LineSpacing;
+            t.paragraphSpacing  = ParagraphSpacing;
+            t.alignment         = Alignment;
+            t.textWrappingMode  = Wrapping;
+            t.overflowMode      = Overflow;
+            t.horizontalMapping = HorizontalMapping;
+            t.verticalMapping   = VerticalMapping;
+            return t;
+        }
+        
+        public override void AddComponent(GameObject go) => UpdateText(go.GetOrAddComponent<TextMeshPro>());
     }
 }
