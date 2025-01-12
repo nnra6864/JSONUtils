@@ -119,13 +119,8 @@ namespace UnityJSONUtils.Scripts.Types.Components.UI
             t.pivot = new(Pivot.X, Pivot.Y);
 
             // Store needed values
-            var pos = t.anchoredPosition3D;
+            var pos = t.anchoredPosition;
             var size = t.sizeDelta;
-            Vector2 offsetX = new(t.offsetMin.x, -t.offsetMax.x);
-            Vector2 offsetY = new(t.offsetMin.y, -t.offsetMax.y);
-
-            // Assign Z pos regardless of whether offset is used
-            pos.z = Position.Z;
 
             // Handle positioning
             if (!offsetHorizontal)
@@ -135,7 +130,7 @@ namespace UnityJSONUtils.Scripts.Types.Components.UI
                 size.x = Size.X;
 
                 // Update the rect transform
-                t.anchoredPosition3D = pos;
+                t.anchoredPosition = pos;
                 t.sizeDelta          = size;
             }
             
@@ -146,32 +141,27 @@ namespace UnityJSONUtils.Scripts.Types.Components.UI
                 size.y = Size.Y;
 
                 // Update the rect transform
-                t.anchoredPosition3D = pos;
+                t.anchoredPosition = pos;
                 t.sizeDelta          = size;
             }
             
             // Handle offset
             if (offsetHorizontal)
             {
-                // Update X offset
-                offsetX = HorizontalOffset;
-
                 // Update rect transform
-                t.offsetMin = new(offsetX.x, offsetY.x);
-                t.offsetMax = new(-offsetX.y, -offsetY.y);
+                t.offsetMin = new(HorizontalOffset.X, t.offsetMin.y);
+                t.offsetMax = new(-HorizontalOffset.Y, t.offsetMax.y);
             }
 
             if (offsetVertical)
             {
-                // Update Y offset
-                offsetY = VerticalOffset;
-
                 // Update rect transform
-                t.offsetMin = new(offsetX.x, offsetY.x);
-                t.offsetMax = new(-offsetX.y, -offsetY.y);
+                t.offsetMin = new(t.offsetMin.x, VerticalOffset.X);
+                t.offsetMax = new(t.offsetMax.x, -VerticalOffset.Y);
             }
 
             // Transform
+            t.localPosition    = new(t.localPosition.x, t.localPosition.y, Position.Z);
             t.localEulerAngles = Rotation;
             t.localScale       = Scale;
 
