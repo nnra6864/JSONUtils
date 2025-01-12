@@ -33,6 +33,7 @@ namespace UnityJSONUtils.Scripts.Types.Components
                 "RectTransform" => typeof(ConfigRectTransform),
                 "Canvas" => typeof(ConfigCanvas),
                 "CanvasScaler" => typeof(ConfigCanvasScaler),
+                "Text" => typeof(ConfigText),
                 _ => null
             };
     }
