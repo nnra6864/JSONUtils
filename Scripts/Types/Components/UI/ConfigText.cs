@@ -2,6 +2,7 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NnUtils.Modules.TextUtils.Scripts;
+using NnUtils.Modules.TextUtils.Scripts.InteractiveText;
 using NnUtils.Scripts;
 using TMPro;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         /// Setting it to Default will result in the default system font being used <br/>
         /// Assigning it a name, e.g. CascadiaCode, will result in a system font being used if found
         [JsonIgnore] public static string DefaultFont = "";
+        
+        [JsonProperty] public bool Interactive;
         
         // Use <br> to go to new line
         [JsonProperty] public string Text;
@@ -56,6 +59,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 
         public ConfigText()
         {
+            Interactive       = false;
             Text              = "";
             Font              = DefaultFont;
             FontStyle         = FontStyles.Normal;
@@ -75,6 +79,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 
         public ConfigText(TMP_Text t)
         {
+            Interactive       = false;
             Text              = t.text;
             Font              = t.font.name;
             FontStyle         = t.fontStyle;
@@ -93,6 +98,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         }
 
         public ConfigText(
+            bool interactive,
             string text,
             string font, FontStyles fontStyle, float fontSize, bool autoSize,
             Color color,
@@ -100,6 +106,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             TextAlignmentOptions alignment, TextWrappingModes wrapping, TextOverflowModes overflow,
             TextureMappingOptions horizontalMapping, TextureMappingOptions verticalMapping)
         {
+            Interactive       = interactive;
             Text              = text;
             Font              = font;
             FontStyle         = fontStyle;
@@ -121,9 +128,8 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 
         public TMP_Text UpdateText(TMP_Text t)
         {
-            t.text = Text;
-            // TODO: Implement font handling
-            t.font = GetFontAsset(t.font);
+            t.text              = Text;
+            t.font              = GetFontAsset(t.font);
             t.fontStyle         = FontStyle;
             t.fontSize          = FontSize;
             t.enableAutoSizing  = AutoSize;
@@ -140,7 +146,11 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             return t;
         }
         
-        public override void AddComponent(GameObject go) => UpdateText(go.GetOrAddComponent<TextMeshProUGUI>());
+        public override void AddComponent(GameObject go)
+        {
+            UpdateText(go.GetOrAddComponent<TextMeshProUGUI>());
+            if (Interactive) go.GetOrAddComponent<InteractiveTMPText>();
+        }
 
         public TMP_FontAsset GetFontAsset(TMP_FontAsset f)
         {
