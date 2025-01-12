@@ -139,6 +139,6 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             return t;
         }
         
-        public override void AddComponent(GameObject go) => UpdateText(go.GetOrAddComponent<TextMeshPro>());
+        public override void AddComponent(GameObject go) => UpdateText(go.GetOrAddComponent<TextMeshProUGUI>());
     }
 }
