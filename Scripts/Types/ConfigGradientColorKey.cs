@@ -1,4 +1,5 @@
 using System;
+using NnUtils.UnityJSONUtils.Scripts.Types;
 using UnityEngine;
 
 namespace UnityJSONUtils.Scripts.Types
