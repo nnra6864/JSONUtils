@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Config;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using UnityEngine;
@@ -9,7 +8,7 @@ using UnityEngine;
 namespace UnityJSONUtils.Scripts.Types
 {
     /// This class is used as a bridge between <see cref="Gradient"/> and JSON <br/>
-    /// When used in <see cref="ConfigData"/>, make sure to assign null in <see cref="ConfigData.ResetToDefault"/> and default value in <see cref="ConfigData.Load"/> if the value is still null <br/>
+    /// Make sure to assign null in the Reset function and default value in a function called after loading data if the value is still null <br/>
     /// This approach prevents data stacking in case not all data is defined in the config
     [Serializable]
     public class ConfigGradient

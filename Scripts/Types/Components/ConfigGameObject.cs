@@ -21,6 +21,7 @@ namespace UnityJSONUtils.Scripts.Types.Components
             InstantiateChildren(go);
         }
         
+        /// Adds all components to the game object
         private void AddComponents(GameObject go)
         {
             if (Components == null) return;
@@ -44,6 +45,7 @@ namespace UnityJSONUtils.Scripts.Types.Components
             } 
         }
 
+        /// Instantiates all the child objects
         private void InstantiateChildren(GameObject go)
         {
             if (Children == null) return;

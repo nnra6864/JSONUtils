@@ -1,10 +1,14 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using NnUtils.Scripts;
 using UnityEngine;
 
 namespace UnityJSONUtils.Scripts.Types.Components.UI
 {
+    /// This class is used as a bridge between <see cref="Canvas"/> and JSON <br/>
+    /// Make sure to assign null in the Reset function and default value in a function called after loading data if the value is still null <br/>
+    /// This approach prevents data stacking in case not all data is defined in the config
     [Serializable]
     public class ConfigCanvas : ConfigComponent
     {
@@ -17,11 +21,11 @@ namespace UnityJSONUtils.Scripts.Types.Components.UI
 
         public ConfigCanvas()
         {
-            RenderMode = RenderMode.ScreenSpaceOverlay;
-            PixelPerfect = false;
-            SortOrder = 0;
+            RenderMode    = RenderMode.ScreenSpaceOverlay;
+            PixelPerfect  = false;
+            SortOrder     = 0;
             TargetDisplay = 0;
-            CameraName = "";
+            CameraName    = "";
         }
 
         public ConfigCanvas(Canvas canvas)
@@ -35,45 +39,32 @@ namespace UnityJSONUtils.Scripts.Types.Components.UI
 
         public ConfigCanvas(
             RenderMode mode = RenderMode.ScreenSpaceOverlay,
-            bool pixelPerfect  = false,
+            bool pixelPerfect = false,
             int sortOrder = 0,
             int targetDisplay = 0,
             string cameraName = ""
-            )
+        )
         {
-            RenderMode = mode;
-            PixelPerfect = pixelPerfect;
-            SortOrder = sortOrder;
+            RenderMode    = mode;
+            PixelPerfect  = pixelPerfect;
+            SortOrder     = sortOrder;
             TargetDisplay = targetDisplay;
-            CameraName = cameraName;
+            CameraName    = cameraName;
         }
-        
-        public static implicit operator ConfigCanvas(Canvas canvas) => new(canvas);
-        
-        public static implicit operator Canvas(ConfigCanvas configCanvas) => new()
-        {
-            renderMode = configCanvas.RenderMode,
-            pixelPerfect = configCanvas.PixelPerfect,
-            sortingOrder = configCanvas.SortOrder,
-            targetDisplay = configCanvas.TargetDisplay,
-            worldCamera = GameObject.Find(configCanvas.CameraName)?.GetComponent<Camera>()
-        };
 
-        /// <summary>
-        /// Updates canvas values with ConfigCanvas values
-        /// </summary>
-        /// <param name="canvas">Canvas to update</param>
-        /// <returns></returns>
+        public static implicit operator ConfigCanvas(Canvas canvas) => new(canvas);
+
+        /// Updates an existing <see cref="Canvas"/> component with config values
         public Canvas UpdateCanvas(Canvas canvas)
         {
-            canvas.renderMode = RenderMode;
-            canvas.pixelPerfect = PixelPerfect;
-            canvas.sortingOrder = SortOrder;
+            canvas.renderMode    = RenderMode;
+            canvas.pixelPerfect  = PixelPerfect;
+            canvas.sortingOrder  = SortOrder;
             canvas.targetDisplay = TargetDisplay;
-            canvas.worldCamera = GameObject.Find(CameraName)?.GetComponent<Camera>();
+            canvas.worldCamera   = GameObject.Find(CameraName)?.GetComponent<Camera>();
             return canvas;
         }
-        
-        public override void AddComponent(GameObject go) => UpdateCanvas(go.AddComponent<Canvas>());
+
+        public override void AddComponent(GameObject go) => UpdateCanvas(go.GetOrAddComponent<Canvas>());
     }
 }

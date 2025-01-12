@@ -1,11 +1,15 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using NnUtils.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UnityJSONUtils.Scripts.Types.Components.UI
 {
+    /// This class is used as a bridge between <see cref="CanvasScaler"/> and JSON <br/>
+    /// Make sure to assign null in the Reset function and default value in a function called after loading data if the value is still null <br/>
+    /// This approach prevents data stacking in case not all data is defined in the config
     [Serializable]
     public class ConfigCanvasScaler : ConfigComponent
     {
@@ -108,6 +112,7 @@ namespace UnityJSONUtils.Scripts.Types.Components.UI
 
         public static implicit operator ConfigCanvasScaler(CanvasScaler scaler) => new(scaler);
 
+        /// Updates an existing <see cref="CanvasScaler"/> component with config values
         public CanvasScaler UpdateCanvasScaler(CanvasScaler scaler)
         {
             // General
@@ -130,6 +135,6 @@ namespace UnityJSONUtils.Scripts.Types.Components.UI
             return scaler;
         }
         
-        public override void AddComponent(GameObject go) => UpdateCanvasScaler(go.AddComponent<CanvasScaler>());
+        public override void AddComponent(GameObject go) => UpdateCanvasScaler(go.GetOrAddComponent<CanvasScaler>());
     }
 }

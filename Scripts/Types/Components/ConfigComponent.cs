@@ -18,24 +18,19 @@ namespace UnityJSONUtils.Scripts.Types.Components
                 ComponentType = GetComponentType();
             }
         }
+        [JsonIgnore] public Type ComponentType;
         
         [JsonProperty] public object Data;
-
-        [JsonIgnore] public Type ComponentType;
-
-        public void LoadData(object data)
-        {
-        }
         
         /// Adds the component to an object and updates its values from config
-        public virtual void AddComponent(GameObject go)
-        {
-            throw new NotImplementedException();
-        }
+        public virtual void AddComponent(GameObject go) { throw new NotImplementedException(); }
 
+        // TODO: Make into a scriptable object or something more convenient for editing
         private Type GetComponentType() =>
             Type switch
             {
+                "Transform" => typeof(ConfigTransform),
+                "RectTransform" => typeof(ConfigRectTransform),
                 "Canvas" => typeof(ConfigCanvas),
                 "CanvasScaler" => typeof(ConfigCanvasScaler),
                 _ => null
