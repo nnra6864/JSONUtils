@@ -6,3 +6,9 @@ You could even say that it does what UI Toolkit failed to do, allow users to def
 ## Usage
 This asset is not meant to be used on it's own, it depends on [TextUtils](https://github.com/nnra6864/TextUtils) from [NnUtils](https://github.com/nnra6864/NnUtils).
 Therefore, I highly recommend just getting the entire [NnUtils](https://github.com/nnra6864/NnUtils) package([Instructions](https://github.com/nnra6864/NnUtils/blob/master/README.md#submodulerecommended)), or selectively installing [JSONUtils](github.com/nnra6864/JSONUtils) and [TextUtils](github.com/nnra6864/TextUtils)([Instructions](https://github.com/nnra6864/NnUtils/blob/master/README.md#submodulerecommended)).
+
+## Dependencies
+
+### [Newtonsoft JSON](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.2)
+Get it by using `Install package by name` in the Unity Package Manager and pasting the following `com.unity.nuget.newtonsoft-json`
+
