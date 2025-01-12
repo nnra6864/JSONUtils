@@ -11,11 +11,10 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
     [Serializable]
     public class ConfigText : ConfigComponent
     {
-        // TODO: Make a system font repo and add it as a submodule to NnUtils
         /// Leaving it empty will result in no effect <br/>
         /// Setting it to Default will result in a default system font being used <br/>
         /// Assigning it a name, e.g. CascadiaCode, will result in a system font being used if found
-        public static string DefaultFont = "";
+        [JsonIgnore] public static string DefaultFont = "";
         
         // Use <br> to go to new line
         [JsonProperty] public string Text;
