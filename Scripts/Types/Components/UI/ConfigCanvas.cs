@@ -61,7 +61,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             canvas.pixelPerfect  = PixelPerfect;
             canvas.sortingOrder  = SortOrder;
             canvas.targetDisplay = TargetDisplay;
-            canvas.worldCamera   = GameObject.Find(CameraName)?.GetComponent<Camera>();
+            canvas.worldCamera   = GameObject.Find(CameraName)?.GetComponent<Camera>() ?? Camera.main;
             return canvas;
         }
 

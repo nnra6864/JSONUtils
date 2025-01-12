@@ -1,6 +1,7 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using NnUtils.Modules.TextUtils.Scripts;
 using NnUtils.Scripts;
 using TMPro;
 using UnityEngine;
@@ -56,7 +57,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         public ConfigText()
         {
             Text              = "";
-            Font              = "";
+            Font              = DefaultFont;
             FontStyle         = FontStyles.Normal;
             FontSize          = 36;
             AutoSize          = false;
@@ -122,7 +123,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         {
             t.text = Text;
             // TODO: Implement font handling
-            //t.font = Font;
+            t.font = GetFontAsset(t.font);
             t.fontStyle         = FontStyle;
             t.fontSize          = FontSize;
             t.enableAutoSizing  = AutoSize;
@@ -140,5 +141,28 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         }
         
         public override void AddComponent(GameObject go) => UpdateText(go.GetOrAddComponent<TextMeshProUGUI>());
+
+        public TMP_FontAsset GetFontAsset(TMP_FontAsset f)
+        {
+            // Create font asset
+            TMP_FontAsset fontAsset;
+            
+            // If Font is set to Default, return current
+            if (Font == "Default") return f;
+            
+            // If Font is found in the system, return that
+            fontAsset = SystemFont.GenerateFontFromName(Font);
+            if (fontAsset != null) return fontAsset;
+            
+            // If DefaultFont is set to Default, return current
+            if (DefaultFont == "Default") return f;
+            
+            // If DefaultFont is found in the system, return that
+            fontAsset = SystemFont.GenerateFontFromName(DefaultFont);
+            if (fontAsset != null) return fontAsset;
+            
+            // Return current if nothing else worked
+            return f;
+        }
     }
 }
