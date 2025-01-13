@@ -18,6 +18,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         [JsonProperty] public int SortOrder;
         [JsonProperty] public int TargetDisplay;
         [JsonProperty] public string CameraName;
+        [JsonProperty] public float PlaneDistance;
 
         public ConfigCanvas()
         {
@@ -26,6 +27,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             SortOrder     = 0;
             TargetDisplay = 0;
             CameraName    = "";
+            PlaneDistance = 100;
         }
 
         public ConfigCanvas(Canvas canvas)
@@ -35,6 +37,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             SortOrder     = canvas.sortingOrder;
             TargetDisplay = canvas.targetDisplay;
             CameraName    = canvas.worldCamera.gameObject.name;
+            PlaneDistance = canvas.planeDistance;
         }
 
         public ConfigCanvas(
@@ -42,7 +45,8 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             bool pixelPerfect = false,
             int sortOrder = 0,
             int targetDisplay = 0,
-            string cameraName = ""
+            string cameraName = "",
+            float planeDistance = 100
         )
         {
             RenderMode    = mode;
@@ -50,6 +54,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             SortOrder     = sortOrder;
             TargetDisplay = targetDisplay;
             CameraName    = cameraName;
+            PlaneDistance = planeDistance;
         }
 
         public static implicit operator ConfigCanvas(Canvas canvas) => new(canvas);
@@ -62,6 +67,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             canvas.sortingOrder  = SortOrder;
             canvas.targetDisplay = TargetDisplay;
             canvas.worldCamera   = GameObject.Find(CameraName)?.GetComponent<Camera>() ?? Camera.main;
+            canvas.planeDistance = PlaneDistance;
             return canvas;
         }
 

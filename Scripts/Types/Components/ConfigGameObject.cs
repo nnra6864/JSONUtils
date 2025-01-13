@@ -35,7 +35,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components
                 var component = Activator.CreateInstance(cmp.ComponentType);
             
                 // Update the json data
-                JsonConvert.PopulateObject(cmp.Data.ToString(), component);
+                JsonConvert.PopulateObject(cmp.Data?.ToString() ?? "{}", component);
                 
                 // Get it's AddComponent method
                 var methodInfo = component.GetType().GetMethod("AddComponent");
