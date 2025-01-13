@@ -33,6 +33,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components
                 "RectTransform" => typeof(ConfigRectTransform),
                 "Canvas" => typeof(ConfigCanvas),
                 "CanvasScaler" => typeof(ConfigCanvasScaler),
+                "VerticalLayoutGroup" => typeof(ConfigVerticalLayoutGroup),
                 "Text" => typeof(ConfigText),
                 _ => null
             };
