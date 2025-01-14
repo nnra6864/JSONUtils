@@ -57,45 +57,26 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty] public TextureMappingOptions VerticalMapping;
 
-        public ConfigText()
-        {
-            Interactive       = false;
-            Text              = "";
-            Font              = DefaultFont;
-            FontStyle         = FontStyles.Normal;
-            FontSize          = 36;
-            AutoSize          = false;
-            Color             = UnityEngine.Color.white;
-            CharacterSpacing  = 0;
-            WordSpacing       = 0;
-            LineSpacing       = 0;
-            ParagraphSpacing  = 0;
-            Alignment         = TextAlignmentOptions.TopLeft;
-            Wrapping          = TextWrappingModes.Normal;
-            Overflow          = TextOverflowModes.Overflow;
-            HorizontalMapping = TextureMappingOptions.Character;
-            VerticalMapping   = TextureMappingOptions.Character;
-        }
+        public ConfigText() : this(
+        
+             false,
+             "",
+             DefaultFont, FontStyles.Normal, 36, false,
+             UnityEngine.Color.white,
+             0, 0, 0, 0,
+             TextAlignmentOptions.TopLeft, TextWrappingModes.Normal, TextOverflowModes.Overflow,
+             TextureMappingOptions.Character, TextureMappingOptions.Character
+        ){}
 
-        public ConfigText(TMP_Text t)
-        {
-            Interactive       = false;
-            Text              = t.text;
-            Font              = t.font.name;
-            FontStyle         = t.fontStyle;
-            FontSize          = t.fontSize;
-            AutoSize          = t.enableAutoSizing;
-            Color             = t.color;
-            CharacterSpacing  = t.characterSpacing;
-            WordSpacing       = t.wordSpacing;
-            LineSpacing       = t.lineSpacing;
-            ParagraphSpacing  = t.paragraphSpacing;
-            Alignment         = t.alignment;
-            Wrapping          = t.textWrappingMode;
-            Overflow          = t.overflowMode;
-            HorizontalMapping = t.horizontalMapping;
-            VerticalMapping   = t.verticalMapping;
-        }
+        public ConfigText(TMP_Text t) : this(
+             false,
+             t.text,
+             t.font.name, t.fontStyle, t.fontSize, t.enableAutoSizing,
+             t.color,
+             t.characterSpacing, t.wordSpacing, t.lineSpacing, t.paragraphSpacing,
+             t.alignment, t.textWrappingMode, t.overflowMode,
+             t.horizontalMapping, t.verticalMapping
+        ){}
 
         public ConfigText(
             bool interactive,
