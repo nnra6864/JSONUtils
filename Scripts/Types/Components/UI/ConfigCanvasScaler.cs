@@ -33,63 +33,25 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         [JsonProperty] public float FallbackScreenDPI;
         [JsonProperty] public float DefaultSpriteDPI;
 
-        public ConfigCanvasScaler()
-        {
-            // General
-            ScaleMode              = CanvasScaler.ScaleMode.ConstantPixelSize;
-            ReferencePixelsPerUnit = 1;
-            
-            // Constant Pixel Size
-            ScaleFactor         = 1;
-            
-            // Scale With Screen Size
-            ReferenceResolution = new(800, 600);
-            ScreenMatchMode     = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-            MatchWidthOrHeight  = 0;
-            
-            // Constant Physical Size
-            PhysicalUnit        = CanvasScaler.Unit.Points;
-            FallbackScreenDPI   = 96;
-            DefaultSpriteDPI    = 96;
-        }
+        public ConfigCanvasScaler() : this(
+            CanvasScaler.ScaleMode.ConstantPixelSize, 1,
+            1,
+            new(800, 600), CanvasScaler.ScreenMatchMode.MatchWidthOrHeight, 0,
+            CanvasScaler.Unit.Points, 96, 96
+            ) { }
 
-        public ConfigCanvasScaler(CanvasScaler scaler)
-        {
-            // General
-            ScaleMode              = scaler.uiScaleMode;
-            ReferencePixelsPerUnit = scaler.referencePixelsPerUnit;
-
-            // Constant Pixel Size
-            ScaleFactor = scaler.scaleFactor;
-
-            // Scale With Screen Size
-            ReferenceResolution = scaler.referenceResolution;
-            ScreenMatchMode     = scaler.screenMatchMode;
-            MatchWidthOrHeight  = scaler.matchWidthOrHeight;
-
-            // Constant Physical Size
-            PhysicalUnit      = scaler.physicalUnit;
-            FallbackScreenDPI = scaler.fallbackScreenDPI;
-            DefaultSpriteDPI  = scaler.defaultSpriteDPI;
-        }
+        public ConfigCanvasScaler(CanvasScaler s) : this(
+            s.uiScaleMode, s.referencePixelsPerUnit,
+            s.scaleFactor,
+            s.referenceResolution, s.screenMatchMode, s.matchWidthOrHeight,
+            s.physicalUnit, s.fallbackScreenDPI, s.defaultSpriteDPI
+            ) { }
 
         public ConfigCanvasScaler(
-            // General
-            CanvasScaler.ScaleMode scaleMode,
-            float referencePixelsPerUnit,
-            
-            // Constant Pixel Size
+            CanvasScaler.ScaleMode scaleMode, float referencePixelsPerUnit,
             float scaleFactor,
-            
-            // Scale With Screen Size
-            Vector2 referenceResolution,
-            CanvasScaler.ScreenMatchMode screenMatchMode,
-            float matchWidthOrHeight,
-            
-            // Constant Physical Size
-            CanvasScaler.Unit physicalUnit,
-            float fallbackScreenDPI,
-            float defaultSpriteDPI
+            Vector2 referenceResolution, CanvasScaler.ScreenMatchMode screenMatchMode, float matchWidthOrHeight,
+            CanvasScaler.Unit physicalUnit, float fallbackScreenDPI, float defaultSpriteDPI
         )
         {
             // General
@@ -110,29 +72,29 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             DefaultSpriteDPI  = defaultSpriteDPI;
         }
 
-        public static implicit operator ConfigCanvasScaler(CanvasScaler scaler) => new(scaler);
+        public static implicit operator ConfigCanvasScaler(CanvasScaler s) => new(s);
 
         /// Updates an existing <see cref="CanvasScaler"/> component with config values
-        public CanvasScaler UpdateCanvasScaler(CanvasScaler scaler)
+        public CanvasScaler UpdateCanvasScaler(CanvasScaler s)
         {
             // General
-            scaler.uiScaleMode = ScaleMode;
-            scaler.referencePixelsPerUnit = ReferencePixelsPerUnit;
+            s.uiScaleMode = ScaleMode;
+            s.referencePixelsPerUnit = ReferencePixelsPerUnit;
             
             // Constant Pixel Size
-            scaler.scaleFactor = ScaleFactor;
+            s.scaleFactor = ScaleFactor;
             
             // Scale With Screen Size
-            scaler.referenceResolution = ReferenceResolution;
-            scaler.screenMatchMode = ScreenMatchMode;
-            scaler.matchWidthOrHeight = MatchWidthOrHeight;
+            s.referenceResolution = ReferenceResolution;
+            s.screenMatchMode = ScreenMatchMode;
+            s.matchWidthOrHeight = MatchWidthOrHeight;
             
             // Constant Physical Size
-            scaler.physicalUnit = PhysicalUnit;
-            scaler.fallbackScreenDPI = FallbackScreenDPI;
-            scaler.defaultSpriteDPI = DefaultSpriteDPI;
+            s.physicalUnit = PhysicalUnit;
+            s.fallbackScreenDPI = FallbackScreenDPI;
+            s.defaultSpriteDPI = DefaultSpriteDPI;
             
-            return scaler;
+            return s;
         }
         
         public override void AddComponent(GameObject go) => UpdateCanvasScaler(go.GetOrAddComponent<CanvasScaler>());

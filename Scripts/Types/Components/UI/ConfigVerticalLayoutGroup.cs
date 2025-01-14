@@ -46,7 +46,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             false, false,
             false, false,
             true, true
-        ) { }
+            ) { }
 
         public ConfigVerticalLayoutGroup(VerticalLayoutGroup vg) : this(
             vg.padding.left, vg.padding.right, vg.padding.top, vg.padding.bottom,
@@ -54,7 +54,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             vg.childControlWidth, vg.childControlHeight,
             vg.childScaleWidth, vg.childScaleHeight,
             vg.childForceExpandWidth, vg.childForceExpandHeight
-        ) { }
+            ) { }
 
         public ConfigVerticalLayoutGroup(
             int paddingLeft, int paddingRight, int paddingTop, int paddingBottom,

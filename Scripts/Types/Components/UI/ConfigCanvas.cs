@@ -43,18 +43,18 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             PlaneDistance = planeDistance;
         }
 
-        public static implicit operator ConfigCanvas(Canvas canvas) => new(canvas);
+        public static implicit operator ConfigCanvas(Canvas c) => new(c);
 
         /// Updates an existing <see cref="Canvas"/> component with config values
-        public Canvas UpdateCanvas(Canvas canvas)
+        public Canvas UpdateCanvas(Canvas c)
         {
-            canvas.renderMode    = RenderMode;
-            canvas.pixelPerfect  = PixelPerfect;
-            canvas.sortingOrder  = SortOrder;
-            canvas.targetDisplay = TargetDisplay;
-            canvas.worldCamera   = GameObject.Find(CameraName)?.GetComponent<Camera>() ?? Camera.main;
-            canvas.planeDistance = PlaneDistance;
-            return canvas;
+            c.renderMode    = RenderMode;
+            c.pixelPerfect  = PixelPerfect;
+            c.sortingOrder  = SortOrder;
+            c.targetDisplay = TargetDisplay;
+            c.worldCamera   = GameObject.Find(CameraName)?.GetComponent<Camera>() ?? Camera.main;
+            c.planeDistance = PlaneDistance;
+            return c;
         }
 
         public override void AddComponent(GameObject go) => UpdateCanvas(go.GetOrAddComponent<Canvas>());
