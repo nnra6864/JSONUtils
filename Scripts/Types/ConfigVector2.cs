@@ -12,23 +12,11 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
         public float X;
         public float Y;
 
-        public ConfigVector2()
-        {
-            X = 0;
-            Y = 0;
-        }
-        
-        public ConfigVector2(float x = 0, float y = 0)
-        {
-            X = x;
-            Y = y;
-        }
+        public ConfigVector2() : this(0, 0) { }
 
-        public ConfigVector2(Vector2 v)
-        {
-            X = v.x;
-            Y = v.y;
-        }
+        public ConfigVector2(Vector2 v) : this(v.x, v.y) { }
+        
+        public ConfigVector2(float x = 0, float y = 0) { X = x; Y = y; }
         
         /// Implicit conversion from <see cref="Vector2"/>
         public static implicit operator ConfigVector2(Vector2 v) => new(v.x, v.y);
