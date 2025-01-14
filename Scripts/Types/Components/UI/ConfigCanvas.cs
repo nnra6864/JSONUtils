@@ -20,25 +20,11 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         [JsonProperty] public string CameraName;
         [JsonProperty] public float PlaneDistance;
 
-        public ConfigCanvas()
-        {
-            RenderMode    = RenderMode.ScreenSpaceOverlay;
-            PixelPerfect  = false;
-            SortOrder     = 0;
-            TargetDisplay = 0;
-            CameraName    = "";
-            PlaneDistance = 100;
-        }
+        public ConfigCanvas() :
+            this(RenderMode.ScreenSpaceOverlay, false, 0, 0, "", 100) { }
 
-        public ConfigCanvas(Canvas canvas)
-        {
-            RenderMode    = canvas.renderMode;
-            PixelPerfect  = canvas.pixelPerfect;
-            SortOrder     = canvas.sortingOrder;
-            TargetDisplay = canvas.targetDisplay;
-            CameraName    = canvas.worldCamera.gameObject.name;
-            PlaneDistance = canvas.planeDistance;
-        }
+        public ConfigCanvas(Canvas c) :
+            this(c.renderMode, c.pixelPerfect, c.sortingOrder, c.targetDisplay, c.worldCamera.gameObject.name, c.planeDistance) {}
 
         public ConfigCanvas(
             RenderMode mode = RenderMode.ScreenSpaceOverlay,
