@@ -13,26 +13,11 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
         public float Y;
         public float Z;
 
-        public ConfigVector3()
-        {
-            X = 0;
-            Y = 0;
-            Z = 0;
-        }
-        
-        public ConfigVector3(float x = 0, float y = 0, float z = 0)
-        {
-            X = x;
-            Y = y;
-            Z = z;
-        }
+        public ConfigVector3() : this(0, 0, 0) { }
 
-        public ConfigVector3(Vector3 v)
-        {
-            X = v.x;
-            Y = v.y;
-            Z = v.z;
-        }
+        public ConfigVector3(Vector3 v) : this(v.x, v.y, v.z) { }
+        
+        public ConfigVector3(float x = 0, float y = 0, float z = 0) { X = x; Y = y; Z = z; }
         
         /// Implicit conversion from <see cref="Vector3"/>
         public static implicit operator ConfigVector3(Vector3 v) => new(v.x, v.y, v.z);
