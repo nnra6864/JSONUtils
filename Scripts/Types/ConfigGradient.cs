@@ -19,20 +19,19 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
         public List<ConfigGradientAlphaKey> AlphaKeys;
         public List<ConfigGradientColorKey> ColorKeys;
 
-        public ConfigGradient()
-        {
-            Mode = GradientMode.Blend;
-            AlphaKeys = new();
-            ColorKeys = new();
-        }
+        public ConfigGradient() : this(GradientMode.Blend, new(), new()) { }
 
-        public ConfigGradient(Gradient gradient)
+        public ConfigGradient(Gradient gradient) : this(
+            gradient.mode,
+            new(gradient.alphaKeys.Select(key => (ConfigGradientAlphaKey)key)),
+            new(gradient.colorKeys.Select(key => (ConfigGradientColorKey)key))
+            ) { }
+
+        public ConfigGradient(GradientMode mode, List<ConfigGradientAlphaKey> alphaKeys, List<ConfigGradientColorKey> colorKeys)
         {
-            Mode = gradient.mode;
-            
-            // Using Select() because it supports implicit conversion
-            AlphaKeys = new(gradient.alphaKeys.Select(key => (ConfigGradientAlphaKey)key));
-            ColorKeys = new(gradient.colorKeys.Select(key => (ConfigGradientColorKey)key));
+            Mode      = mode;
+            AlphaKeys = alphaKeys;
+            ColorKeys = colorKeys;
         }
 
         /// Implicit conversion from <see cref="Gradient"/>
