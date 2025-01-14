@@ -25,7 +25,6 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components
         /// Adds the component to an object and updates its values from config
         public virtual void AddComponent(GameObject go) { throw new NotImplementedException(); }
 
-        // TODO: Make into a scriptable object or something more convenient for editing
         private Type GetComponentType() =>
             Type switch
             {
