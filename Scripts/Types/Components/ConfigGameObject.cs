@@ -54,6 +54,9 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components
             {
                 GameObject obj = new();
                 obj.transform.SetParent(go.transform);
+                obj.transform.localPosition = Vector3.zero;
+                obj.transform.localRotation = Quaternion.identity;
+                obj.transform.localScale = Vector3.one;
                 child.Initialize(obj);
             }
         }
