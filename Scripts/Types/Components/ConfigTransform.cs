@@ -15,9 +15,9 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components
         [JsonProperty] public ConfigVector3 Rotation;
         [JsonProperty] public ConfigVector3 Scale;
 
-        public ConfigTransform() : this(Vector3.zero, Vector3.zero, Vector3.zero) {}
+        public ConfigTransform() : this(Vector3.zero, Vector3.zero, Vector3.zero) { }
 
-        public ConfigTransform(Transform t) : this(t.localPosition, t.localRotation.eulerAngles, t.localScale) {}
+        public ConfigTransform(Transform t) : this(t.localPosition, t.localRotation.eulerAngles, t.localScale) { }
 
         public ConfigTransform(Vector3 position, Vector3 rotation, Vector3 scale)
         {

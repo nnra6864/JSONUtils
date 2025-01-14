@@ -30,49 +30,21 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         [JsonProperty] public ConfigVector2 HorizontalOffset;
         [JsonProperty] public ConfigVector2 VerticalOffset;
 
-        public ConfigRectTransform()
-        {
-            // Anchors
-            AnchorsX = Vector2.one * 0.5f;
-            AnchorsY = Vector2.one * 0.5f;
+        public ConfigRectTransform() : this(
+            Vector3.zero, Vector3.zero, Vector3.one,
+            new(100, 100),
+            Vector2.zero, Vector2.zero,
+            Vector2.one * 0.5f, Vector2.one * 0.5f,
+            Vector2.one * 0.5f
+            ) { }
 
-            // Pivot
-            Pivot = Vector2.one * 0.5f;
-
-            // Transform
-            Position = Vector3.zero;
-            Rotation = Vector3.zero;
-            Scale    = Vector3.one;
-
-            // Size
-            Size = new(100, 100);
-
-            //Offset
-            HorizontalOffset = Vector2.zero;
-            VerticalOffset   = Vector2.zero;
-        }
-
-        public ConfigRectTransform(RectTransform t)
-        {
-            // Anchors
-            AnchorsX = new(t.anchorMin.x, t.anchorMax.x);
-            AnchorsY = new(t.anchorMin.y, t.anchorMax.y);
-
-            // Pivot
-            Pivot = t.pivot;
-
-            // Transform
-            Position = new(t.anchoredPosition3D.x, t.anchoredPosition3D.y, t.anchoredPosition3D.z);
-            Rotation = t.localEulerAngles;
-            Scale    = t.localScale;
-
-            // Size
-            Size = t.sizeDelta;
-
-            // Offset
-            HorizontalOffset = new(t.offsetMin.x, -t.offsetMax.x);
-            VerticalOffset   = new(t.offsetMin.y, -t.offsetMax.y);
-        }
+        public ConfigRectTransform(RectTransform t) : this(
+            new(t.anchoredPosition3D.x, t.anchoredPosition3D.y, t.anchoredPosition3D.z), t.localEulerAngles, t.localScale,
+            t.sizeDelta,
+            new(t.offsetMin.x, -t.offsetMax.x), new(t.offsetMin.y, -t.offsetMax.y),
+            new(t.anchorMin.x, t.anchorMax.x), new(t.anchorMin.y, t.anchorMax.y),
+            t.pivot
+        ) { }
 
         public ConfigRectTransform(
             Vector3 position, Vector3 rotation, Vector3 scale,

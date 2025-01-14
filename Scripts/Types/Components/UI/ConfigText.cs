@@ -58,15 +58,15 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         [JsonProperty] public TextureMappingOptions VerticalMapping;
 
         public ConfigText() : this(
-        
-             false,
-             "",
-             DefaultFont, FontStyles.Normal, 36, false,
-             UnityEngine.Color.white,
-             0, 0, 0, 0,
-             TextAlignmentOptions.TopLeft, TextWrappingModes.Normal, TextOverflowModes.Overflow,
-             TextureMappingOptions.Character, TextureMappingOptions.Character
-        ){}
+
+            false,
+            "",
+            DefaultFont, FontStyles.Normal, 36, false,
+            UnityEngine.Color.white,
+            0, 0, 0, 0,
+            TextAlignmentOptions.TopLeft, TextWrappingModes.Normal, TextOverflowModes.Overflow,
+            TextureMappingOptions.Character, TextureMappingOptions.Character
+        ) { }
 
         public ConfigText(TMP_Text t) : this(
              false,
@@ -76,7 +76,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
              t.characterSpacing, t.wordSpacing, t.lineSpacing, t.paragraphSpacing,
              t.alignment, t.textWrappingMode, t.overflowMode,
              t.horizontalMapping, t.verticalMapping
-        ){}
+        ) { }
 
         public ConfigText(
             bool interactive,

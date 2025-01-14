@@ -24,7 +24,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
             this(RenderMode.ScreenSpaceOverlay, false, 0, 0, "", 100) { }
 
         public ConfigCanvas(Canvas c) :
-            this(c.renderMode, c.pixelPerfect, c.sortingOrder, c.targetDisplay, c.worldCamera.gameObject.name, c.planeDistance) {}
+            this(c.renderMode, c.pixelPerfect, c.sortingOrder, c.targetDisplay, c.worldCamera.gameObject.name, c.planeDistance) { }
 
         public ConfigCanvas(
             RenderMode mode = RenderMode.ScreenSpaceOverlay,
