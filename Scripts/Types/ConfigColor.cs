@@ -20,32 +20,13 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
         /// Intensity
         public float I;
 
-        public ConfigColor()
-        {
-            R = 0;
-            G = 0;
-            B = 0;
-            A = 1;
-            I = 1;
-        }
+        public ConfigColor() : this(0, 0, 0, 1, 1) { }
         
-        public ConfigColor(ConfigColor c)
-        {
-            R = c.R;
-            G = c.G;
-            B = c.B;
-            A = c.A;
-            I = c.I;
-        }
+        public ConfigColor(ConfigColor c) : this(c.R, c.G, c.B, c.A, c.I) { }
 
-        public ConfigColor(Color c)
-        {
-            R = c.r;
-            G = c.g;
-            B = c.b;
-            A = c.a;
-            I = 1;
-        }
+        public ConfigColor(Color c) : this(c.r, c.g, c.b, c.a, 1) { }
+
+        public ConfigColor(float r, float g, float b, float a, float i) { R = r; G = g; B = b; A = a; I = i; }
 
         /// Implicit conversion from <see cref="UnityEngine.Color"/>
         public static implicit operator ConfigColor(Color c) => new(c);
