@@ -13,24 +13,16 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
         public float Time;
 
         /// Default ctor
-        public ConfigGradientColorKey()
-        {
-            Color = new();
-            Time  = 0;
-        }
+        public ConfigGradientColorKey() : this(new(), 0) { }
+
+        /// Ctor from <see cref="GradientAlphaKey"/>
+        public ConfigGradientColorKey(GradientColorKey key) : this(key.color, key.time) { }
 
         /// Ctor from values
         public ConfigGradientColorKey(ConfigColor color, float time)
         {
             Color = color;
             Time  = time;
-        }
-
-        /// Ctor from <see cref="GradientAlphaKey"/>
-        public ConfigGradientColorKey(GradientColorKey key)
-        {
-            Color = key.color;
-            Time  = key.time;
         }
 
         /// Implicit operator from <see cref="GradientAlphaKey"/>
