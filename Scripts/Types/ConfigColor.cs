@@ -1,4 +1,6 @@
 using System;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types
@@ -20,6 +22,10 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
         /// Intensity
         public float I;
 
+        [OnDeserializing]
+        private void Reset(StreamingContext context)
+        { R = 0; G = 0; B = 0; A = 1; I = 1; }
+        
         public ConfigColor() : this(0, 0, 0, 1, 1) { }
         
         public ConfigColor(ConfigColor c) : this(c.R, c.G, c.B, c.A, c.I) { }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using UnityEngine;
@@ -18,6 +19,10 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
         public GradientMode Mode;
         public List<ConfigGradientAlphaKey> AlphaKeys;
         public List<ConfigGradientColorKey> ColorKeys;
+
+        [OnDeserializing]
+        public void OnDeserializing(StreamingContext context)
+        { Mode = GradientMode.Blend; AlphaKeys = new(); ColorKeys = new(); }
 
         public ConfigGradient() : this(GradientMode.Blend, new(), new()) { }
 

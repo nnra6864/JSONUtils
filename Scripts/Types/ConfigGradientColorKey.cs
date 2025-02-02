@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types
@@ -12,6 +13,10 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
         public ConfigColor Color;
         public float Time;
 
+        [OnDeserializing]
+        private void OnDeserializing(StreamingContext context)
+        { Color = new(); Time  = 0;}
+        
         /// Default ctor
         public ConfigGradientColorKey() : this(new(), 0) { }
 

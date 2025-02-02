@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types
@@ -12,6 +13,10 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
         public float Alpha;
         public float Time;
 
+        [OnDeserializing]
+        private void OnDeserializing(StreamingContext context)
+        { Alpha = 1; Time  = 0; }
+        
         /// Default ctor
         public ConfigGradientAlphaKey() : this(1, 0) { }
         
