@@ -9,10 +9,6 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
     [Serializable]
     public class ConfigColor
     {
-        [JsonIgnore]
-        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
-        public bool UseDataDefaults = true;
-        
         /// Red
         public float R;
         /// Green
@@ -24,6 +20,10 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
         /// Intensity
         public float I;
 
+        [JsonIgnore]
+        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
+        public bool UseDataDefaults = true;
+        
         /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
         [OnDeserializing]
         private void Reset(StreamingContext context)

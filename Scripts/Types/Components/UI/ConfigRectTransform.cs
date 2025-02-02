@@ -1,13 +1,13 @@
 using System;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using NnUtils.Scripts;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 {
     /// This class is used as a bridge between <see cref="RectTransform"/> and JSON <br/>
-    /// Make sure to assign null in the Reset function and default value in a function called after loading data if the value is still null <br/>
-    /// This approach prevents data stacking in case not all data is defined in the config
     [Serializable]
     public class ConfigRectTransform : ConfigComponent
     {
@@ -30,9 +30,29 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         [JsonProperty] public ConfigVector2 HorizontalOffset;
         [JsonProperty] public ConfigVector2 VerticalOffset;
 
+        [JsonIgnore]
+        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
+        public bool UseDataDefaults;
+
+        /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
+        [OnDeserializing]
+        private void OnDeserializing(StreamingContext context)
+        {
+            if (!UseDataDefaults) return;
+            Position         = Vector3.zero;
+            Rotation         = Vector3.zero;
+            Scale            = Vector3.one;
+            Size             = Vector2.one * 100;
+            HorizontalOffset = Vector2.zero;
+            VerticalOffset   = Vector2.zero;
+            AnchorsX         = Vector2.one * 0.5f;
+            AnchorsY         = Vector2.one * 0.5f;
+            Pivot            = Vector2.one * 0.5f;
+        }
+
         public ConfigRectTransform() : this(
             Vector3.zero, Vector3.zero, Vector3.one,
-            new(100, 100),
+            Vector2.one * 100,
             Vector2.zero, Vector2.zero,
             Vector2.one * 0.5f, Vector2.one * 0.5f,
             Vector2.one * 0.5f

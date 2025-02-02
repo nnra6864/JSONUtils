@@ -9,13 +9,13 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
     [Serializable]
     public class ConfigVector2
     {
-        [JsonIgnore]
-        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
-        public bool UseDataDefaults = true;
-        
         public float X;
         public float Y;
 
+        [JsonIgnore]
+        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
+        public bool UseDataDefaults;
+        
         /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
         [OnDeserializing]
         private void OnDeserializing(StreamingContext context)

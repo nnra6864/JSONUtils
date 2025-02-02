@@ -12,16 +12,16 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
     [Serializable]
     public class ConfigGradient
     {
-        [JsonIgnore]
-        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
-        public bool UseDataDefaults = true;
-        
         // BUG: For some reason, gradient mode doesn't work properly
         [JsonConverter(typeof(StringEnumConverter))]
         public GradientMode Mode;
         public List<ConfigGradientAlphaKey> AlphaKeys;
         public List<ConfigGradientColorKey> ColorKeys;
 
+        [JsonIgnore]
+        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
+        public bool UseDataDefaults = true;
+        
         /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
         [OnDeserializing]
         private void OnDeserializing(StreamingContext context)

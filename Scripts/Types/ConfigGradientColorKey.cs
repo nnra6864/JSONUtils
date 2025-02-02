@@ -9,13 +9,13 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
     [Serializable]
     public class ConfigGradientColorKey
     {
+        public ConfigColor Color;
+        public float Time;
+
         [JsonIgnore]
         [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
         public bool UseDataDefaults = true;
         
-        public ConfigColor Color;
-        public float Time;
-
         /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
         [OnDeserializing]
         private void OnDeserializing(StreamingContext context)

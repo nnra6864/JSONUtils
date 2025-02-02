@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NnUtils.Scripts;
@@ -8,37 +9,61 @@ using UnityEngine.UI;
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 {
     /// This class is used as a bridge between <see cref="VerticalLayoutGroup"/> and JSON <br/>
-    /// Make sure to assign null in the Reset function and default value in a function called after loading data if the value is still null <br/>
-    /// This approach prevents data stacking in case not all data is defined in the config
     [Serializable]
     public class ConfigVerticalLayoutGroup : ConfigComponent
     {
-        [Header("Padding")] [JsonProperty] public int PaddingLeft;
+        [Header("Padding")]
+        [JsonProperty] public int PaddingLeft;
         [JsonProperty] public int PaddingRight;
         [JsonProperty] public int PaddingTop;
         [JsonProperty] public int PaddingBottom;
 
-        [Header("")] [JsonProperty] public float Spacing;
+        [Header("")]
+        [JsonProperty] public float Spacing;
 
-        [JsonConverter(typeof(StringEnumConverter))] [JsonProperty]
-        public TextAnchor ChildAlignment;
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty] public TextAnchor ChildAlignment;
 
         [JsonProperty] public bool ReverseArrangement;
 
-        [Header("Control Child Size")] [JsonProperty]
-        public bool ControlWidth;
+        [Header("Control Child Size")]
+        [JsonProperty] public bool ControlWidth;
 
         [JsonProperty] public bool ControlHeight;
 
-        [Header("Use Child Scale")] [JsonProperty]
-        public bool UseWidth;
+        [Header("Use Child Scale")]
+        [JsonProperty] public bool UseWidth;
 
         [JsonProperty] public bool UseHeight;
 
-        [Header("Child Force Expand")] [JsonProperty]
-        public bool ForceExpandWidth;
+        [Header("Child Force Expand")]
+        [JsonProperty] public bool ForceExpandWidth;
 
         [JsonProperty] public bool ForceExpandHeight;
+
+        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
+        [JsonIgnore]
+        public bool UseDataDefaults;
+        
+        /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
+        [OnDeserializing]
+        private void OnDeserializing(StreamingContext context)
+        {
+            if (!UseDataDefaults) return;
+            PaddingLeft = 0;
+            PaddingRight = 0;
+            PaddingTop = 0;
+            PaddingBottom = 0;
+            Spacing = 0;
+            ChildAlignment = TextAnchor.UpperLeft;
+            ReverseArrangement = false;
+            ControlWidth = false;
+            ControlHeight = false;
+            UseWidth = false;
+            UseHeight = false;
+            ForceExpandWidth = true;
+            ForceExpandHeight = true;
+        }
 
         public ConfigVerticalLayoutGroup() : this(
             0, 0, 0, 0,

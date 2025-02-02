@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NnUtils.Scripts;
@@ -8,8 +9,6 @@ using UnityEngine.UI;
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 {
     /// This class is used as a bridge between <see cref="CanvasScaler"/> and JSON <br/>
-    /// Make sure to assign null in the Reset function and default value in a function called after loading data if the value is still null <br/>
-    /// This approach prevents data stacking in case not all data is defined in the config
     [Serializable]
     public class ConfigCanvasScaler : ConfigComponent
     {
@@ -32,6 +31,26 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         [JsonProperty] public CanvasScaler.Unit PhysicalUnit;
         [JsonProperty] public float FallbackScreenDPI;
         [JsonProperty] public float DefaultSpriteDPI;
+
+        [JsonIgnore]
+        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
+        public bool UseDataDefaults;
+        
+        /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
+        [OnDeserializing]
+        private void OnDeserializing(StreamingContext context)
+        {
+            if (!UseDataDefaults) return;
+            ScaleMode              = CanvasScaler.ScaleMode.ConstantPixelSize;
+            ReferencePixelsPerUnit = 1;
+            ScaleFactor            = 1;
+            ReferenceResolution    = new(800, 600);
+            ScreenMatchMode        = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+            MatchWidthOrHeight     = 0;
+            PhysicalUnit           = CanvasScaler.Unit.Points;
+            FallbackScreenDPI = 96;
+            DefaultSpriteDPI = 96;
+        }
 
         public ConfigCanvasScaler() : this(
             CanvasScaler.ScaleMode.ConstantPixelSize, 1,

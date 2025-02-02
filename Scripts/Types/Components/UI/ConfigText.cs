@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NnUtils.Modules.TextUtils.Scripts;
@@ -11,14 +12,10 @@ using Color = UnityEngine.Color;
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 {
     /// This class is used as a bridge between <see cref="TMP_Text"/> and JSON <br/>
-    /// Make sure to assign null in the Reset function and default value in a function called after loading data if the value is still null <br/>
-    /// This approach prevents data stacking in case not all data is defined in the config
     [Serializable]
     public class ConfigText : ConfigComponent
     {
         /// Leaving it empty will result in no effect <br/>
-        /// Setting it to Default will result in the default system font being used <br/>
-        /// Assigning it a name, e.g. CascadiaCode, will result in a system font being used if found
         [JsonIgnore] public static string DefaultFont = "";
         
         [JsonProperty] public bool Interactive;
@@ -56,6 +53,33 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty] public TextureMappingOptions VerticalMapping;
+
+        [JsonIgnore]
+        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
+        public bool UseDataDefaults;
+
+        /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
+        [OnDeserializing]
+        private void OnDeserializing(StreamingContext context)
+        {
+            if (!UseDataDefaults) return;
+            Interactive       = false;
+            Text              = "";
+            Font              = DefaultFont;
+            FontStyle         = FontStyles.Normal;
+            FontSize          = 36;
+            AutoSize          = false;
+            Color             = UnityEngine.Color.white;
+            CharacterSpacing  = 0;
+            WordSpacing       = 0;
+            LineSpacing       = 0;
+            ParagraphSpacing  = 0;
+            Alignment         = TextAlignmentOptions.TopLeft;
+            Wrapping          = TextWrappingModes.Normal;
+            Overflow          = TextOverflowModes.Overflow;
+            HorizontalMapping = TextureMappingOptions.Character;
+            VerticalMapping   = TextureMappingOptions.Character;
+        }
 
         public ConfigText() : this(
             false,

@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using NnUtils.Scripts;
 using UnityEngine;
@@ -6,14 +7,26 @@ using UnityEngine;
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components
 {
     /// This class is used as a bridge between <see cref="Transform"/> and JSON <br/>
-    /// Make sure to assign null in the Reset function and default value in a function called after loading data if the value is still null <br/>
-    /// This approach prevents data stacking in case not all data is defined in the config
     [Serializable]
     public class ConfigTransform : ConfigComponent
     {
         [JsonProperty] public ConfigVector3 Position;
         [JsonProperty] public ConfigVector3 Rotation;
         [JsonProperty] public ConfigVector3 Scale;
+        
+        [JsonIgnore]
+        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
+        public bool UseDataDefaults;
+        
+        /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
+        [OnDeserializing]
+        private void Reset(StreamingContext context)
+        {
+            if (!UseDataDefaults) return;
+            Position = Vector3.zero;
+            Rotation = Vector3.zero;
+            Scale = Vector3.one;
+        }
 
         public ConfigTransform() : this(Vector3.zero, Vector3.zero, Vector3.zero) { }
 
