@@ -9,20 +9,26 @@ using UnityEngine;
 namespace NnUtils.Modules.JSONUtils.Scripts.Types
 {
     /// This class is used as a bridge between <see cref="Gradient"/> and JSON <br/>
-    /// Make sure to assign null in the Reset function and default value in a function called after loading data if the value is still null <br/>
-    /// This approach prevents data stacking in case not all data is defined in the config
     [Serializable]
     public class ConfigGradient
     {
+        [JsonIgnore]
+        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
+        public bool UseDataDefaults = true;
+        
         // BUG: For some reason, gradient mode doesn't work properly
         [JsonConverter(typeof(StringEnumConverter))]
         public GradientMode Mode;
         public List<ConfigGradientAlphaKey> AlphaKeys;
         public List<ConfigGradientColorKey> ColorKeys;
 
+        /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
         [OnDeserializing]
-        public void OnDeserializing(StreamingContext context)
-        { Mode = GradientMode.Blend; AlphaKeys = new(); ColorKeys = new(); }
+        private void OnDeserializing(StreamingContext context)
+        {
+            if (!UseDataDefaults) return;
+            Mode = GradientMode.Blend; AlphaKeys = new(); ColorKeys = new();
+        }
 
         public ConfigGradient() : this(GradientMode.Blend, new(), new()) { }
 

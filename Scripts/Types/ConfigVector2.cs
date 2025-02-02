@@ -1,17 +1,29 @@
 using System;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types
 {
     /// This class is used as a bridge between <see cref="Vector2"/> and JSON <br/>
-    /// Make sure to assign null in the Reset function and default value in a function called after loading data if the value is still null <br/>
-    /// This approach prevents data stacking in case not all data is defined in the config
     [Serializable]
     public class ConfigVector2
     {
+        [JsonIgnore]
+        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
+        public bool UseDataDefaults = true;
+        
         public float X;
         public float Y;
 
+        /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
+        [OnDeserializing]
+        private void OnDeserializing(StreamingContext context)
+        {
+            if (!UseDataDefaults) return;
+            X = 0; Y = 0;
+        }
+        
         public ConfigVector2() : this(0, 0) { }
 
         public ConfigVector2(Vector2 v) : this(v.x, v.y) { }
