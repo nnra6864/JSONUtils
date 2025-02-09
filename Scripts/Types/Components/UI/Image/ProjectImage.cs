@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Scripts.Core
+namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
 {
     [Serializable]
     public struct ProjectImage

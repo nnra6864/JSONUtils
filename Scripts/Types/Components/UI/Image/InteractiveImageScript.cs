@@ -1,18 +1,16 @@
 using System.Linq;
-using NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI;
 using NnUtils.Scripts;
 using NnUtils.Scripts.UI;
-using Scripts.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Scripts.InteractiveComponents
+namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
 {
     public class InteractiveImageScript : MonoBehaviour
     {
-        private static ImageManagerScript ImageManager => GameManagerScript.ImageManager;
+        private static ProjectImageManagerScript ImageManager => NnManager.ImageManager;
 
-        private Image _image;
+        private UnityEngine.UI.Image _image;
         private AspectRatioFitter _imageARF;
 
         public void LoadImage(ConfigImage configImage)
@@ -24,10 +22,10 @@ namespace Scripts.InteractiveComponents
             // Add components
             if (configImage.Envelope)
             {
-                _image = gameObject.AddComponent<EnvelopedImage>();
-                _imageARF = gameObject.AddComponent<AspectRatioFitter>();
+                _image    = gameObject.AddComponent<EnvelopedImage>();
+                _imageARF = gameObject.GetComponent<AspectRatioFitter>();
             }
-            else _image = gameObject.AddComponent<Image>();
+            else _image = gameObject.AddComponent<UnityEngine.UI.Image>();
             
             // Try to load the sprite from a file or project images and assign it to the Image component
             var sprite = Misc.SpriteFromFile(configImage.Image) ??

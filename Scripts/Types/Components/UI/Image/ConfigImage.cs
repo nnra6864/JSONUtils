@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using NnUtils.Scripts;
-using NnUtils.Scripts.UI;
-using Scripts.InteractiveComponents;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
-namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
+namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
 {
     /// This class is used as a bridge between <see cref="UnityEngine.UI.Image"/> and JSON <br/>
     [Serializable]
