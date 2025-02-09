@@ -62,7 +62,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         public UnityEngine.UI.Image UpdateImage(UnityEngine.UI.Image img)
         {
             var sp = Misc.SpriteFromFile(Image);
-            img.sprite         = sp ? sp : Sprite.Create(new(1, 1), new(0, 0, 1, 1), new(0.5f, 0.5f));
+            img.sprite         = sp;
             img.color          = Color;
             img.raycastTarget  = Raycast;
             img.raycastPadding = RaycastPadding;
@@ -72,19 +72,8 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 
         public override void AddComponent(GameObject go)
         {
-            var ii = go.AddComponent<InteractiveImageScript>();
-            ii.LoadData(this);
-        }
-
-        public bool Equals(ConfigImage other)
-        {
-            return Image == other.Image &&
-                   Equals(Color, other.Color) &&
-                   Raycast == other.Raycast &&
-                   Equals(RaycastPadding, other.RaycastPadding) &&
-                   Maskable == other.Maskable &&
-                   Envelope == other.Envelope &&
-                   UseDataDefaults == other.UseDataDefaults;
+            var interactiveImage = go.AddComponent<InteractiveImageScript>();
+            interactiveImage.LoadImage(this);
         }
     }
 }
