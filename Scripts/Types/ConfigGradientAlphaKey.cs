@@ -12,9 +12,8 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
         public float Alpha;
         public float Time;
         
-        [JsonIgnore]
         [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
-        public bool UseDataDefaults = true;
+        [JsonIgnore] public bool UseDataDefaults = true;
 
         /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
         [OnDeserializing]

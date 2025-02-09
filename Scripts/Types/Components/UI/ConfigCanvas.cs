@@ -19,9 +19,8 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         [JsonProperty] public string CameraName;
         [JsonProperty] public float PlaneDistance;
 
-        [JsonIgnore]
         [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
-        public bool UseDataDefaults;
+        [JsonIgnore] public bool UseDataDefaults;
         
         /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
         [OnDeserializing]
