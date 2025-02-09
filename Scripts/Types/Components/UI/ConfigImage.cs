@@ -15,13 +15,11 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
     public class ConfigImage : ConfigComponent
     {
         [JsonProperty] public string Image;
-        [JsonProperty] public List<string> Images;
         [JsonProperty] public ConfigColor Color;
         [JsonProperty] public bool Raycast;
         [JsonProperty] public ConfigVector4 RaycastPadding;
         [JsonProperty] public bool Maskable;
         [JsonProperty] public bool Envelope;
-        [JsonProperty] public bool Interactive; 
 
         [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")] [JsonIgnore]
         public bool UseDataDefaults = true;
@@ -32,45 +30,39 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         {
             if (!UseDataDefaults) return;
             Image    = "";
-            Images   = new();
             Color    = UnityEngine.Color.white;
             Raycast  = true;
             Maskable = true;
-            Interactive = true;
         }
 
         public ConfigImage() :
-            this("", new(), UnityEngine.Color.white, true, new(), true, false) { }
+            this("", UnityEngine.Color.white, true, new(), true, false) { }
 
         public ConfigImage(UnityEngine.UI.Image image)
         {
             Image          = image.sprite.name;
-            Images         = new();
             Color          = image.color;
             Raycast        = image.raycastTarget;
             RaycastPadding = image.raycastPadding;
             Maskable       = image.maskable;
             Envelope       = false;
-            Interactive    = false;
         }
 
-        public ConfigImage(string image = "", List<string> images = null, Color color = default, bool raycast = true,
-            Vector4 raycastPadding = default, bool maskable = true, bool envelope = false, bool interactive = true)
+        public ConfigImage(string image = "", Color color = default, bool raycast = true,
+           Vector4 raycastPadding = default, bool maskable = true, bool envelope = false)
         {
             Image          = image;
-            Images         = images;
             Color          = color;
             Raycast        = raycast;
             RaycastPadding = raycastPadding;
             Maskable       = maskable;
             Envelope       = envelope;
-            Interactive    = interactive;
         }
 
         public UnityEngine.UI.Image UpdateImage(UnityEngine.UI.Image img)
         {
-            var sp = Misc.SpriteFromFile(Images.Count == 0 ? Image : Images[0]);
-            img.sprite         = sp == null ? Sprite.Create(new(1, 1), new(0, 0, 1, 1), new(0.5f, 0.5f)) : sp;
+            var sp = Misc.SpriteFromFile(Image);
+            img.sprite         = sp ? sp : Sprite.Create(new(1, 1), new(0, 0, 1, 1), new(0.5f, 0.5f));
             img.color          = Color;
             img.raycastTarget  = Raycast;
             img.raycastPadding = RaycastPadding;
@@ -80,9 +72,6 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 
         public override void AddComponent(GameObject go)
         {
-            UpdateImage(Envelope ? go.AddComponent<EnvelopedImage>() : go.AddComponent<UnityEngine.UI.Image>());
-            
-            if (!Interactive) return;
             var ii = go.AddComponent<InteractiveImageScript>();
             ii.LoadData(this);
         }
@@ -90,13 +79,11 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
         public bool Equals(ConfigImage other)
         {
             return Image == other.Image &&
-                   Equals(Images, other.Images) &&
                    Equals(Color, other.Color) &&
                    Raycast == other.Raycast &&
                    Equals(RaycastPadding, other.RaycastPadding) &&
                    Maskable == other.Maskable &&
                    Envelope == other.Envelope &&
-                   Interactive == other.Interactive &&
                    UseDataDefaults == other.UseDataDefaults;
         }
     }
