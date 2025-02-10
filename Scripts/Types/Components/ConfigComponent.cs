@@ -1,6 +1,7 @@
 using System;
 using Newtonsoft.Json;
 using NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI;
+using NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image;
 using UnityEngine;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components
@@ -34,6 +35,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components
                 "CanvasScaler" => typeof(ConfigCanvasScaler),
                 "VerticalLayoutGroup" => typeof(ConfigVerticalLayoutGroup),
                 "Text" => typeof(ConfigText),
+                "Image" => typeof(ConfigImage),
                 _ => null
             };
     }
