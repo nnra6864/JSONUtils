@@ -1,7 +1,10 @@
+using System;
+using System.Collections;
 using System.Linq;
 using NnUtils.Scripts;
 using NnUtils.Scripts.UI;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
@@ -14,6 +17,13 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
         private AspectRatioFitter _imageARF;
 
         public void LoadImage(ConfigImage configImage)
+        {
+            this.StopRoutine(ref _webImageRoutine);
+            this.RestartRoutine(ref _loadImageRoutine, LoadImageRoutine(configImage));
+        }
+
+        private Coroutine _loadImageRoutine, _webImageRoutine;
+        private IEnumerator LoadImageRoutine(ConfigImage configImage)
         {
             // Destroy components if they already exist
             if (_image != null) DestroyImmediate(_image);
@@ -28,19 +38,24 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
             else _image = gameObject.AddComponent<UnityEngine.UI.Image>();
             
             // Try to load the sprite from a file or project images and assign it to the Image component
-            var sprite = Misc.SpriteFromFile(configImage.Image) ??
-                         ImageManager.Images.FirstOrDefault(x => x.Name == configImage.Image).Sprite;
+            var sprite = ImageManager.Images.FirstOrDefault(x => x.Name == configImage.Image).Sprite ??
+                         Misc.SpriteFromFile(configImage.Image);
+            
+            // Try to load the sprite from the web
+            if (sprite == null)
+            {
+                var isDone = false;
+                _webImageRoutine = StartCoroutine(Misc.SpriteFromURL(configImage.Image, s =>
+                {
+                    sprite = s;
+                    isDone = true;
+                }));
+                yield return new WaitUntil(() => isDone);
+                _webImageRoutine = null;
+            }
+            
+            // Update the Image component's sprite
             _image.sprite = sprite;
-
-            // Return if Sprite is null
-            if (sprite == null) return;
-            
-            // Return if ARF is null
-            if (_imageARF == null) return;
-            
-            // Set aspect ratio from resolution
-            var rect = sprite.rect;
-            _imageARF.aspectRatio = rect.width / rect.height;
         }
     }
 }
