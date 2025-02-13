@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 {
-    /// This class is used as a bridge between <see cref="VerticalLayoutGroup"/> and JSON <br/>
+    /// This class is used as a bridge between <see cref="VerticalLayoutGroup"/> and JSON
     [Serializable]
     public class ConfigVerticalLayoutGroup : ConfigComponent
     {

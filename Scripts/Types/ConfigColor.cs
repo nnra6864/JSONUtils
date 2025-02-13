@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types
 {
-    /// This class is used as a bridge between <see cref="Color"/> and JSON <br/>
+    /// This class is used as a bridge between <see cref="Color"/> and JSON
     [Serializable]
     public class ConfigColor
     {
@@ -25,7 +25,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types
         
         /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
         [OnDeserializing]
-        private void Reset(StreamingContext context)
+        private void OnDeserializing(StreamingContext context)
         {
             if (!UseDataDefaults) return;
             R = 0; G = 0; B = 0; A = 1; I = 1;

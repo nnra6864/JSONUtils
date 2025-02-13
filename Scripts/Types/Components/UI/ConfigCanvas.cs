@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 {
-    /// This class is used as a bridge between <see cref="Canvas"/> and JSON <br/>
+    /// This class is used as a bridge between <see cref="Canvas"/> and JSON
     [Serializable]
     public class ConfigCanvas : ConfigComponent
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types
 {
-    /// This class is used as a bridge between <see cref="GradientColorKey"/> and JSON <br/>
+    /// This class is used as a bridge between <see cref="GradientColorKey"/> and JSON>
     [Serializable]
     public class ConfigGradientColorKey
     {

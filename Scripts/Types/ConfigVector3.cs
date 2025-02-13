@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types
 {
-    /// This class is used as a bridge between <see cref="Vector3"/> and JSON <br/>
+    /// This class is used as a bridge between <see cref="Vector3"/> and JSON>
     [Serializable]
     public class ConfigVector3
     {

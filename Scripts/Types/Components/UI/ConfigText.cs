@@ -11,11 +11,11 @@ using Color = UnityEngine.Color;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI
 {
-    /// This class is used as a bridge between <see cref="TMP_Text"/> and JSON <br/>
+    /// This class is used as a bridge between <see cref="TMP_Text"/> and JSON
     [Serializable]
     public class ConfigText : ConfigComponent
     {
-        /// Leaving it empty will result in no effect <br/>
+        /// Leaving it empty will result in no effect
         [JsonIgnore] public static string DefaultFont = "";
         
         [JsonProperty] public bool Interactive;

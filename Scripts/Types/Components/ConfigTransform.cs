@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components
 {
-    /// This class is used as a bridge between <see cref="Transform"/> and JSON <br/>
+    /// This class is used as a bridge between <see cref="Transform"/> and JSON
     [Serializable]
     public class ConfigTransform : ConfigComponent
     {
@@ -19,7 +19,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components
         
         /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
         [OnDeserializing]
-        private void Reset(StreamingContext context)
+        private void OnDeserializing(StreamingContext context)
         {
             if (!UseDataDefaults) return;
             Position = Vector3.zero;
