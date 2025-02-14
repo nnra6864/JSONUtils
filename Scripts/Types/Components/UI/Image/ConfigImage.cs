@@ -64,7 +64,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
         public override void AddComponent(GameObject go)
         {
             var interactiveImage = go.AddComponent<InteractiveImageScript>();
-            interactiveImage.LoadImage(Image, Color, Raycast, RaycastPadding, Maskable, ScalingMode);
+            interactiveImage.LoadData(Image, Color, Raycast, RaycastPadding, Maskable, ScalingMode);
         }
     }
 }
