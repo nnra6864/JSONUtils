@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using NnUtils.Scripts.UI.Slideshow;
@@ -10,7 +11,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
     [Serializable]
     public class ConfigSlideshow : ConfigComponent
     {
-        [JsonProperty] public ConfigImage[] Images;
+        [JsonProperty] public Dictionary<ConfigImage, ConfigSlideshowTransition> Images;
         [JsonProperty] public ConfigSlideshowTransition[] Transitions;
         
         [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")] [JsonIgnore]
@@ -21,13 +22,13 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
         private void OnDeserializing(StreamingContext context)
         {
             if (!UseDataDefaults) return;
-            Images = Array.Empty<ConfigImage>();
+            Images.Clear();
             Transitions = Array.Empty<ConfigSlideshowTransition>();
         }
         
-        public ConfigSlideshow() : this(Array.Empty<ConfigImage>(), Array.Empty<ConfigSlideshowTransition>()) { }
+        public ConfigSlideshow() : this(new(), Array.Empty<ConfigSlideshowTransition>()) { }
 
-        public ConfigSlideshow(ConfigImage[] images, ConfigSlideshowTransition[] transitions)
+        public ConfigSlideshow(Dictionary<ConfigImage, ConfigSlideshowTransition> images, ConfigSlideshowTransition[] transitions)
         {
             Images = images;
             Transitions = transitions;

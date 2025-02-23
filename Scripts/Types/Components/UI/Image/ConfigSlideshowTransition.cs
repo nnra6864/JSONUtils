@@ -53,7 +53,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
         public static implicit operator SlideshowTransition(ConfigSlideshowTransition transition) =>
             new(transition.TransitionType, transition.Duration, transition.Easing);
         
-        public static implicit operator ConfigSlideshowTransition(SlideshowTransitionType transition) =>
+        public static implicit operator ConfigSlideshowTransition(SlideshowTransition transition) =>
             new(transition);
     }
 }

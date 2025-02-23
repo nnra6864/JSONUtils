@@ -42,7 +42,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
 
         public ConfigImage(UnityEngine.UI.Image image)
         {
-            Image          = image.sprite.name;
+            Image          = image.sprite?.name;
             Color          = image.color;
             Raycast        = image.raycastTarget;
             RaycastPadding = image.raycastPadding;
@@ -61,6 +61,8 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
             ScalingMode    = scalingMode;
         }
 
+        public static implicit operator ConfigImage(UnityEngine.UI.Image image) => new(image);
+        
         public override void AddComponent(GameObject go)
         {
             var interactiveImage = go.AddComponent<InteractiveImageScript>();
