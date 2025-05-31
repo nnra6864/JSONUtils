@@ -2,7 +2,6 @@ using System;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using NnUtils.Scripts;
 using NnUtils.Scripts.UI.Slideshow;
 using UnityEngine;
 
@@ -18,7 +17,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
         [JsonProperty("Type")] public SlideshowTransitionType TransitionType;
         [JsonProperty] public float Duration;
         [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty] public Easings.Type Easing;
+        [JsonProperty] public Easings.Easings.Type Easing;
         
         [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")] [JsonIgnore]
         public bool UseDataDefaults = true;
@@ -30,10 +29,10 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
             if (!UseDataDefaults) return;
             TransitionType = SlideshowTransitionType.None;
             Duration = 0;
-            Easing = Easings.Type.None;
+            Easing = Easings.Easings.Type.Linear;
         }
 
-        public ConfigSlideshowTransition() : this(SlideshowTransitionType.None, 0, Easings.Type.None) { }
+        public ConfigSlideshowTransition() : this(SlideshowTransitionType.None, 0, Easings.Easings.Type.Linear) { }
 
         public ConfigSlideshowTransition(SlideshowTransition transition)
         {
@@ -43,7 +42,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
         }
         
         public ConfigSlideshowTransition(SlideshowTransitionType type = SlideshowTransitionType.None, float duration = 0,
-            Easings.Type easing = Easings.Type.None)
+            Easings.Easings.Type easing = Easings.Easings.Type.Linear)
         {
             TransitionType = type;
             Duration = duration;
