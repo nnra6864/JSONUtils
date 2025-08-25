@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NnUtils.Scripts.UI.Slideshow;
+using NnUtils.Modules.Easings;
 using UnityEngine;
 
 namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
@@ -17,11 +18,12 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
         [JsonProperty("Type")] public SlideshowTransitionType TransitionType;
         [JsonProperty] public float Duration;
         [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty] public Easings.Easings.Type Easing;
-        
-        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")] [JsonIgnore]
+        [JsonProperty] public EasingType Easing;
+
+        [Tooltip("Whether data type defaults will be used if partially defined object is found in JSON")]
+        [JsonIgnore]
         public bool UseDataDefaults = true;
-        
+
         /// Resets values to data defaults overwriting custom defined defaults if data is found in the config
         [OnDeserializing]
         private void OnDeserializing(StreamingContext context)
@@ -29,10 +31,10 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
             if (!UseDataDefaults) return;
             TransitionType = SlideshowTransitionType.None;
             Duration = 0;
-            Easing = Easings.Easings.Type.Linear;
+            Easing = EasingType.Linear;
         }
 
-        public ConfigSlideshowTransition() : this(SlideshowTransitionType.None, 0, Easings.Easings.Type.Linear) { }
+        public ConfigSlideshowTransition() : this(SlideshowTransitionType.None, 0, EasingType.Linear) { }
 
         public ConfigSlideshowTransition(SlideshowTransition transition)
         {
@@ -40,9 +42,9 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
             Duration = transition.Duration;
             Easing = transition.Easing;
         }
-        
+
         public ConfigSlideshowTransition(SlideshowTransitionType type = SlideshowTransitionType.None, float duration = 0,
-            Easings.Easings.Type easing = Easings.Easings.Type.Linear)
+            EasingType easing = EasingType.Linear)
         {
             TransitionType = type;
             Duration = duration;
@@ -51,7 +53,7 @@ namespace NnUtils.Modules.JSONUtils.Scripts.Types.Components.UI.Image
 
         public static implicit operator SlideshowTransition(ConfigSlideshowTransition transition) =>
             new(transition.TransitionType, transition.Duration, transition.Easing);
-        
+
         public static implicit operator ConfigSlideshowTransition(SlideshowTransition transition) =>
             new(transition);
     }
