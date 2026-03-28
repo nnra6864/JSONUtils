@@ -31,13 +31,13 @@ Get it by using `Install package by name` in the Unity Package Manager and pasti
 
 # ☦ Ι̅Ϲ̅ Χ̅Ϲ̅ ΝΙΚΑ — Ὁ Ὤν
 
-Εἰς δόξαν τοῦ Θεοῦ
+Εἰς δόξαν τοῦ Θεοῦ<br>
 *To the glory of God*
 
-Τῇ Ὑπεραγίᾳ Θεοτόκῳ δόξα
+Τῇ Ὑπεραγίᾳ Θεοτόκῳ δόξα<br>
 *Glory to the Most Holy Theotokos*
 
-Δόξα τῷ Θεῷ πάντων ἕνεκεν
+Δόξα τῷ Θεῷ πάντων ἕνεκεν<br>
 *Glory to God for all things*
 
 ΑΜΗΝ
