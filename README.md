@@ -12,7 +12,7 @@ This asset is not meant to be used on it's own, it depends on [TextUtils](https:
 
 Navigate to your git repo and run:
 ```sh
-git submodule add ../../nnra6864/NnTextUtils Assets/Modules/NnTextUtils
+git submodule add ../../nnra6864/NnJSONUtils Assets/Modules/NnJSONUtils
 git submodule update --init --recursive
 ```
 
@@ -20,7 +20,7 @@ git submodule update --init --recursive
 
 In directory of your choice run:
 ```sh
-git clone --recursive https://www.github.com/nnra6864/UnityTextUtils
+git clone --recursive https://www.github.com/nnra6864/UnityJSONUtils
 ```
 
 ### Dependencies
