@@ -29,3 +29,17 @@ git clone --recursive https://www.github.com/nnra6864/UnityTextUtils
 
 Get it by using `Install package by name` in the Unity Package Manager and pasting the following `com.unity.nuget.newtonsoft-json`
 
+# ☦ Ι̅Ϲ̅ Χ̅Ϲ̅ ΝΙΚΑ — Ὁ Ὤν
+
+Εἰς δόξαν τοῦ Θεοῦ
+*To the glory of God*
+
+Τῇ Ὑπεραγίᾳ Θεοτόκῳ δόξα
+*Glory to the Most Holy Theotokos*
+
+Δόξα τῷ Θεῷ πάντων ἕνεκεν
+*Glory to God for all things*
+
+ΑΜΗΝ
+
+☦
